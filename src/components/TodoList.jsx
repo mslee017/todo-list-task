@@ -1,25 +1,20 @@
 import React from 'react';
 import Todo from './Todo';
 
-const TodoList = ({ todos, setTodos, editTodo }) => {
-  const deleteTodo = id => {
-    const filteredTodos = todos.filter(todo => {
-      return todo.id !== id;
-    });
-    setTodos(filteredTodos);
-  };
-
+const TodoList = ({ todos, onDeleteTodo, editTodo, onCompleteTodo }) => {
   return (
-    <div>
+    <ul className="todo-list">
       {todos.map(todo => (
         <Todo
           {...todo}
           key={todo.id}
-          onDelete={deleteTodo}
+          onDelete={onDeleteTodo}
           editTodo={editTodo}
+          onCompleteTodo={onCompleteTodo}
+          completed={todo.completed}
         />
       ))}
-    </div>
+    </ul>
   );
 };
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const Todo = ({ name, onDelete, id, editTodo }) => {
+const Todo = ({ name, onDelete, id, editTodo, onCompleteTodo, completed }) => {
   const [editingTodo, setEditingTodo] = useState(false);
 
   const handleEditTodo = () => {
@@ -14,25 +14,34 @@ const Todo = ({ name, onDelete, id, editTodo }) => {
   };
 
   return (
-    <div className="todo-container">
-      <input type="checkbox" className="completed-checkbox" />
-      {editingTodo ? (
+    <li className="todo-item">
+      <div className="checkbox-wrapper">
         <input
-          type="text"
-          onKeyDown={handleExitEditing}
-          onChange={event => editTodo(event.target.value, id)}
+          type="checkbox"
+          className="completed-checkbox"
+          onChange={() => onCompleteTodo(id)}
+          checked={completed}
         />
-      ) : (
-        <span>{name}</span>
-      )}
-      <span className="edit-todo" onClick={handleEditTodo}>
-        Pencil
-      </span>
-      {/* Mention to Abhishek: this onClick only works with arrow function. Why is this? */}
-      <span className="delete-todo" onClick={() => onDelete(id)}>
-        Trash Can
-      </span>
-    </div>
+        {editingTodo ? (
+          <input
+            type="text"
+            onKeyDown={handleExitEditing}
+            onChange={event => editTodo(event.target.value, id)}
+          />
+        ) : (
+          <span>{name}</span>
+        )}
+      </div>
+      <div className="icon-wrapper">
+        <button onClick={handleEditTodo} className="icon-button">
+          ✏️
+        </button>
+
+        <button onClick={() => onDelete(id)} className="icon-button">
+          🗑️
+        </button>
+      </div>
+    </li>
   );
 };
 

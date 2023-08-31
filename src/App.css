@@ -5,6 +5,7 @@ body {
 
 .wrapper {
   margin-left: 20px;
+  background-color: white;
 }
 
 .enter-todo-input {
@@ -16,8 +17,10 @@ body {
   outline: none;
 }
 
-.todo-container {
-  max-width: 300px;
+.todo-list {
+  list-style: none;
+  padding: 0;
+  width: 300px;
 }
 
 .completed-checkbox {
@@ -27,4 +30,23 @@ body {
 .edit-todo,
 .delete-todo {
   cursor: pointer;
+}
+
+.icon-button {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.todo-item {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.todo-item:not(:last-child) {
+  margin-bottom: 8px;
 }

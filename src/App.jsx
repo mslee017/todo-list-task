@@ -1,30 +1,47 @@
 import { useState } from 'react';
 import TodoList from './components/TodoList';
+import AddTodoForm from './components/AddTodoForm';
 import { initialTodos } from './todos';
 import './App.css';
 
 function App() {
   const [todos, setTodos] = useState(initialTodos);
-  const [enterTodo, setEnterTodo] = useState('');
 
-  const handleChange = event => {
-    setEnterTodo(event.target.value);
+  const addTodo = name => {
+    setTodos([{ id: crypto.randomUUID(), name, completed: false }, ...todos]);
   };
 
-  const addTodo = event => {
-    event.preventDefault();
-    setTodos([
-      { id: crypto.randomUUID(), name: enterTodo, completed: false },
-      ...todos,
-    ]);
-    setEnterTodo('');
+  console.log(todos);
+  const handleDeleteTodo = id => {
+    const filteredTodos = todos.filter(todo => {
+      return todo.id !== id;
+    });
+    setTodos(filteredTodos);
   };
 
   const handleEditingTodo = (name, id) => {
     setTodos(
       todos.map(todo => {
         if (todo.id === id) {
-          todo.name = name;
+          return {
+            ...todo,
+            name: todo.name,
+          };
+        }
+        return todo;
+      })
+    );
+  };
+
+  const handleCompleteTodo = id => {
+    //
+    setTodos(
+      todos.map(todo => {
+        if (todo.id === id) {
+          return {
+            ...todo,
+            completed: !todo.completed,
+          };
         }
         return todo;
       })
@@ -33,21 +50,13 @@ function App() {
 
   return (
     <div className="wrapper">
-      <form action="#" onSubmit={addTodo}>
-        <h1>My Todo List</h1>
-        <input
-          type="text"
-          className="enter-todo-input"
-          onChange={handleChange}
-          value={enterTodo}
-          placeholder="Enter Task"
-        ></input>
-        <TodoList
-          todos={todos}
-          setTodos={setTodos}
-          editTodo={handleEditingTodo}
-        />
-      </form>
+      <AddTodoForm addTodo={addTodo} />
+      <TodoList
+        todos={todos}
+        editTodo={handleEditingTodo}
+        onDeleteTodo={handleDeleteTodo}
+        onCompleteTodo={handleCompleteTodo}
+      />
     </div>
   );
 }
