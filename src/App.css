@@ -1,0 +1,30 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.wrapper {
+  margin-left: 20px;
+}
+
+.enter-todo-input {
+  border-radius: 3px;
+  border: 1px solid grey;
+}
+
+.enter-todo-input:focus {
+  outline: none;
+}
+
+.todo-container {
+  max-width: 300px;
+}
+
+.completed-checkbox {
+  border-radius: 2px;
+}
+
+.edit-todo,
+.delete-todo {
+  cursor: pointer;
+}
